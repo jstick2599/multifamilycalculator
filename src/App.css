@@ -169,7 +169,7 @@ button:hover {
   
   body {
     margin: 5%; /* Less margin on mobile */
-    padding-top: 20px; /* Slightly more padding at the top */
+    padding: 20px; /* Slightly more padding at the top */
   }
 
 }
