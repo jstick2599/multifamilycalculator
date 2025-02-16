@@ -10,6 +10,9 @@ body {
   margin: 0;
   padding-top: 5%; /* Adds space at the top */
   background-image: url("./images/highRiseBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 
