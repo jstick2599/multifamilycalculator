@@ -167,8 +167,9 @@ button:hover {
 @media screen and (max-width: 768px) {
   /* the below scaling only applies when width is 768px or less */
   
-  body{
-    margin:10%; 
+  body {
+    margin: 5%; /* Less margin on mobile */
+    padding-top: 20px; /* Slightly more padding at the top */
   }
 
 }
