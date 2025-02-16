@@ -52,6 +52,7 @@ function App() {
           : grossIncomeValue - expensesValue;
         if(capRate!=null && propertyValue!=null){
           noiValue=capRate*propertyValue;
+          changed=true;
         }
         if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
           noiValue = newNoi;
