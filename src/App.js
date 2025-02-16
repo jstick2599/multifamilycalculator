@@ -50,10 +50,14 @@ function App() {
         const newNoi = expenseType === "percentage" 
           ? grossIncomeValue * (1 - expensesValue / 100)
           : grossIncomeValue - expensesValue;
-        if(capRate!=null && propertyValue!=null){
-          noiValue=capRate*propertyValue;
-          changed=true;
+        if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
+          noiValue = newNoi;
+          changed = true;
         }
+      }
+      // Calculate NOI from cap rate and property value
+      if (capRateValue !== null && propertyValueValue !== null) {
+        const newNoi = capRateValue * propertyValueValue;
         if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
           noiValue = newNoi;
           changed = true;
