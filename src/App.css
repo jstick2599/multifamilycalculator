@@ -162,3 +162,13 @@ button:hover {
   color: white;
   font-weight: bold;
 }
+
+/* Mobile Scaling */
+@media screen and (max-width: 768px) {
+  /* the below scaling only applies when width is 768px or less */
+  
+  body{
+    padding:5%; 
+  }
+
+}
