@@ -9,7 +9,9 @@ body {
   height: 100vh;
   margin: 0;
   padding-top: 5%; /* Adds space at the top */
+  background-image: url("./images/highRiseBackground.png");
 }
+
 
 /* Container */
 .container {

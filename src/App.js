@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
+
 function App() {
   const [rent, setRent] = useState(null);
   const [units, setUnits] = useState(null);
