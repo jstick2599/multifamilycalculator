@@ -130,23 +130,23 @@ function App() {
         {error && <p className="error">{error}</p>}
 
         <div className="input-group">
-          <label>Rent ($ per unit):</label>
-          <input
-            type="number"
-            value={rent || ""}
-            onChange={(e) => setRent(e.target.value || null)}
-            placeholder="Enter Rent"
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Units (#):</label>
-          <input
-            type="number"
-            value={units || ""}
-            onChange={(e) => setUnits(e.target.value || null)}
-            placeholder="Enter Units"
-          />
+          <label>Rent ($ per unit) & Units (#):</label>
+          <div className="rent-units-row">
+            <input
+              type="number"
+              value={rent || ""}
+              onChange={(e) => setRent(e.target.value || null)}
+              placeholder="Enter Rent"
+            />
+            <span className="x">x</span>
+            <input
+              type="number"
+              value={units || ""}
+              onChange={(e) => setUnits(e.target.value || null)}
+              placeholder="Enter Units"
+            />
+            <span className="multiply">x12</span>
+          </div>
         </div>
 
         <div className="input-group">
@@ -187,6 +187,15 @@ function App() {
             placeholder="Enter NOI"
           />
         </div>
+        <div className="input-group">
+          <label>Cap Rate (%):</label>
+          <input
+            type="number"
+            value={capRate || ""}
+            onChange={(e) => setCapRate(e.target.value || null)}
+            placeholder="Enter Cap Rate"
+          />
+        </div>
 
         <div className="input-group">
           <label>Property Value ($):</label>
@@ -198,15 +207,7 @@ function App() {
           />
         </div>
 
-        <div className="input-group">
-          <label>Cap Rate (%):</label>
-          <input
-            type="number"
-            value={capRate || ""}
-            onChange={(e) => setCapRate(e.target.value || null)}
-            placeholder="Enter Cap Rate"
-          />
-        </div>
+
 
         <button onClick={calculateValues}>Calculate</button>
 
