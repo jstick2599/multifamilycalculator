@@ -168,7 +168,7 @@ button:hover {
   /* the below scaling only applies when width is 768px or less */
   
   body{
-    padding:20%; 
+    margin:10%; 
   }
 
 }
