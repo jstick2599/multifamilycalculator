@@ -171,5 +171,39 @@ button:hover {
     margin: 5%; /* Less margin on mobile */
     padding: 20px; /* Slightly more padding at the top */
   }
+    /* Adjust container width and margin */
+    .container {
+      width: 90%; /* Increase the width to 90% for mobile */
+      padding: 20px; /* Adjust padding inside the container */
+      margin-top: 10px; /* Reduce margin-top */
+    }
+    /* Adjust input fields to fit the screen */
+    .rent-units-row input {
+      width: 45%; /* Maintain 45% width for rent and units inputs */
+    }
+  
+    .rent-units-row .label-wrapper {
+      width: 45%; /* Ensure labels stay aligned with inputs */
+    }
+  
+    .expense-input {
+      flex-direction: column; /* Stack expense input fields vertically */
+      gap: 10px;
+    }
+  
+    /* Buttons and other elements */
+    button {
+      width: 100%; /* Ensure button takes full width */
+    }
+  
+    /* Checkboxes */
+    .checkbox-group {
+      flex-direction: column; /* Stack checkboxes vertically on mobile */
+      align-items: flex-start; /* Align items to the left */
+    }
+  
+    .checkbox-group label {
+      font-size: 16px; /* Adjust font size for better readability */
+    }
 
 }
