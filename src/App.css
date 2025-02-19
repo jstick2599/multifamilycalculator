@@ -9,14 +9,15 @@ body {
   height: 100vh;
   margin: 0;
   padding-top: 5%; /* Adds space at the top */
-  background-image: url("./images/highRiseBackground.png");
+  /* background-image: url("./images/highRiseBackground.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center; */
   background-attachment: fixed; /* Ensures clarity on scroll */
   image-rendering: crisp-edges; /* Helps in maintaining sharpness */
-  margin-top:7%;
+  margin-top:10%;
   overflow-y: auto;
+  font-family:  'Montserrat';
 }
 .wrapper {
   display: flex;
@@ -194,7 +195,22 @@ button:hover {
   color: white;
   font-weight: bold;
 }
-
+.videoDescription{
+  display: flex;
+  flex-direction: row;
+}
+.video{
+  width:50vw; 
+  padding-left:5%;
+  padding-bottom:5%;
+}
+.description{
+  width:50vw; 
+  padding-left:5%;
+  padding-right:5%;
+  /* color:#FFFFE0; */
+  
+}
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
   /* the below scaling only applies when width is 768px or less */
@@ -236,6 +252,10 @@ button:hover {
   
     .checkbox-group label {
       font-size: 16px; /* Adjust font size for better readability */
+    }
+    .videoDescription{
+      display: flex;
+      flex-direction: column;
     }
 
 }

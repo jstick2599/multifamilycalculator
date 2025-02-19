@@ -236,16 +236,27 @@ function App() {
           )}
         </div>
         </div>
-      <div className="video">
-                <ReactPlayer 
-                url="https://www.youtube.com/shorts/I5fQcEoC6k4" 
-                controls
-                width="100%"
-                height="100%"
-                className="react-player"
-                />
+      <div className="videoDescription">
+        <div className="video">
+                  <ReactPlayer 
+                  url="https://www.youtube.com/shorts/I5fQcEoC6k4" 
+                  controls
+                  width="100%"
+                  height="100%"
+                  className="react-player"
+                  />
+        </div>
+        <div>
+          <h1 className="description">Welcome to multifamilycalc.com – the simplest way to analyze multifamily real estate deals with ease. Our powerful yet user-friendly calculator helps you determine Net Operating Income (NOI), Cap Rates, and Property Values in just a few clicks.
+          </h1>
+          <h1 className="description">Whether you're a seasoned investor, realtor, or just getting started, EasyCap Calculator takes the guesswork out of real estate math. No more complex formulas or spreadsheets—just enter your numbers and get instant, accurate results.</h1>
+          <h1 className="description">
+            Make smarter multifamily investment decisions—faster. Try it now!
+          </h1>
+        </div>
 
       </div>
+
     </div>
   );
 }
