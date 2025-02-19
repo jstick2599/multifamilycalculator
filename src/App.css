@@ -15,19 +15,44 @@ body {
   background-position: center;
   background-attachment: fixed; /* Ensures clarity on scroll */
   image-rendering: crisp-edges; /* Helps in maintaining sharpness */
+  margin-top:7%;
+  overflow-y: auto;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center content */
+  width: 100%;
 }
 
-
-/* Container */
 .container {
+  width: 90%;
+  max-width: 600px;
   background: #282a36;
-  padding: 30px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-  width: 500px; /* Increased width */
   text-align: center;
-  margin-top: 40px;
+  margin-top: 10%;
 }
+
+.video {
+  margin-top: 20px; /* Adds space between calculator and video */
+  width: 90%;
+  max-width: 600px;
+  height: 315px; /* Set height to maintain aspect ratio */
+}
+
+.react-player {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
+
+  /* box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); */
+
 
 /* Rent and Units Row */
 .rent-units-row {
@@ -178,8 +203,8 @@ button:hover {
     margin: 5%; /* Less margin on mobile */
     padding: 20px; /* Slightly more padding at the top */
   }
-    /* Adjust container width and margin */
-    .container {
+    /* Adjust wrapper width and margin */
+    .wrapper {
       width: 90%; /* Increase the width to 90% for mobile */
       padding: 20px; /* Adjust padding inside the container */
       margin-top: 10px; /* Reduce margin-top */

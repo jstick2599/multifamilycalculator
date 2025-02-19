@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import ReactPlayer from "react-player";
+
 
 
 function App() {
@@ -130,107 +132,119 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1>Multifamily Property Value Calculator</h1>
+    <div className="wrapper">
+      <div className="container">
+        <h1>Multifamily Property Value Calculator</h1>
 
-      <div className="calculator">
-        <h2>Enter known values:</h2>
+        <div className="calculator">
+          <h2>Enter known values:</h2>
 
-        {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
-        <div className="input-group">
-          <label>Rent ($ per unit) & Units (#):</label>
-          <div className="rent-units-row">
+          <div className="input-group">
+            <label>Rent ($ per unit) & Units (#):</label>
+            <div className="rent-units-row">
+              <input
+                type="number"
+                value={rent || ""}
+                onChange={(e) => setRent(e.target.value || null)}
+                placeholder="Enter Rent"
+              />
+              <span className="x">x</span>
+              <input
+                type="number"
+                value={units || ""}
+                onChange={(e) => setUnits(e.target.value || null)}
+                placeholder="Enter Units"
+              />
+              <span className="multiply">x12</span>
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Gross Income ($):</label>
             <input
               type="number"
-              value={rent || ""}
-              onChange={(e) => setRent(e.target.value || null)}
-              placeholder="Enter Rent"
+              value={grossIncome || ""}
+              onChange={(e) => setGrossIncome(e.target.value || null)}
+              placeholder="Enter Gross Income"
             />
-            <span className="x">x</span>
+          </div>
+
+          <div className="input-group">
+            <label>Expenses:</label>
+            <div className="expense-input">
+              <input
+                type="number"
+                value={expenses || ""}
+                onChange={(e) => setExpenses(e.target.value || null)}
+                placeholder={`Enter ${expenseType === "percentage" ? "Expense %" : "Exact $"}`}
+              />
+              <select
+                onChange={(e) => setExpenseType(e.target.value)}
+                value={expenseType}
+              >
+                <option value="percentage">%</option>
+                <option value="exact">$</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Net Operating Income (NOI) ($):</label>
             <input
               type="number"
-              value={units || ""}
-              onChange={(e) => setUnits(e.target.value || null)}
-              placeholder="Enter Units"
+              value={noi || ""}
+              onChange={(e) => setNoi(e.target.value || null)}
+              placeholder="Enter NOI"
             />
-            <span className="multiply">x12</span>
           </div>
-        </div>
-
-        <div className="input-group">
-          <label>Gross Income ($):</label>
-          <input
-            type="number"
-            value={grossIncome || ""}
-            onChange={(e) => setGrossIncome(e.target.value || null)}
-            placeholder="Enter Gross Income"
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Expenses:</label>
-          <div className="expense-input">
+          <div className="input-group">
+            <label>Cap Rate (%):</label>
             <input
               type="number"
-              value={expenses || ""}
-              onChange={(e) => setExpenses(e.target.value || null)}
-              placeholder={`Enter ${expenseType === "percentage" ? "Expense %" : "Exact $"}`}
+              value={capRate || ""}
+              onChange={(e) => setCapRate(e.target.value || null)}
+              placeholder="Enter Cap Rate"
             />
-            <select
-              onChange={(e) => setExpenseType(e.target.value)}
-              value={expenseType}
-            >
-              <option value="percentage">%</option>
-              <option value="exact">$</option>
-            </select>
           </div>
-        </div>
 
-        <div className="input-group">
-          <label>Net Operating Income (NOI) ($):</label>
-          <input
-            type="number"
-            value={noi || ""}
-            onChange={(e) => setNoi(e.target.value || null)}
-            placeholder="Enter NOI"
-          />
-        </div>
-        <div className="input-group">
-          <label>Cap Rate (%):</label>
-          <input
-            type="number"
-            value={capRate || ""}
-            onChange={(e) => setCapRate(e.target.value || null)}
-            placeholder="Enter Cap Rate"
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Property Value ($):</label>
-          <input
-            type="number"
-            value={propertyValue || ""}
-            onChange={(e) => setPropertyValue(e.target.value || null)}
-            placeholder="Enter Property Value"
-          />
-        </div>
-
-
-
-        <button onClick={calculateValues}>Calculate</button>
-
-        {showResults && (
-          <div className="results">
-            <h3>Calculated Results:</h3>
-            <p>Rent: ${rent}</p>
-            <p>Units: {units}</p>
-            <p>Gross Income: ${grossIncome}</p>
-            <p>NOI: ${noi}</p>
-            <p>Property Value: ${propertyValue}</p>
-            <p>Cap Rate: {capRate}%</p>
+          <div className="input-group">
+            <label>Property Value ($):</label>
+            <input
+              type="number"
+              value={propertyValue || ""}
+              onChange={(e) => setPropertyValue(e.target.value || null)}
+              placeholder="Enter Property Value"
+            />
           </div>
-        )}
+
+
+
+          <button onClick={calculateValues}>Calculate</button>
+
+          {showResults && (
+            <div className="results">
+              <h3>Calculated Results:</h3>
+              <p>Rent: ${rent}</p>
+              <p>Units: {units}</p>
+              <p>Gross Income: ${grossIncome}</p>
+              <p>NOI: ${noi}</p>
+              <p>Property Value: ${propertyValue}</p>
+              <p>Cap Rate: {capRate}%</p>
+            </div>
+          )}
+        </div>
+        </div>
+      <div className="video">
+                <ReactPlayer 
+                url="https://www.youtube.com/shorts/I5fQcEoC6k4" 
+                controls
+                width="100%"
+                height="100%"
+                className="react-player"
+                />
+
       </div>
     </div>
   );
