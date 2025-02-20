@@ -11,8 +11,14 @@ function App() {
   const [propertyValue, setPropertyValue] = useState(null);
   const [capRate, setCapRate] = useState(null);
   const [grossIncome, setGrossIncome] = useState(null);
+  const [principal, setPrincipal] = useState(null);
+  const [numPayments, setNumPayments] = useState(null);
+  const [monthlyInterestRate, setMonthlyInterestRate] = useState(null);
+  const [monthlyValue, setMonthlyValue] = useState(null);
   const [error, setError] = useState("");
+  const [loanError, setLoanError] = useState(""); // Separate error state for loan calculator
   const [showResults, setShowResults] = useState(false);
+  const [showLoanResults, setShowLoanResults] = useState(false); // Separate state for loan results
 
   const calculateValues = () => {
     setError("");
@@ -120,6 +126,41 @@ function App() {
     setShowResults(true);
   };
 
+  const calculateLoanValues = () => {
+    setLoanError("");
+    let principalValue = principal ? parseFloat(principal) : null;
+    let numPaymentsValue = numPayments ? parseFloat(numPayments) : null;
+    let monthlyInterestRateValue = monthlyInterestRate ? parseFloat(monthlyInterestRate) / 100 / 12 : null; // Convert annual % to monthly decimal
+    let monthlyPayment = monthlyValue ? parseFloat(monthlyValue) : null;
+
+    let givenValues = [principal, numPayments, monthlyInterestRate].filter(
+      (val) => val !== null && val !== ""
+    ).length;
+
+    if (givenValues < 3) {
+      setLoanError("Please provide Principal, Number of Payments, and Monthly Interest Rate to calculate the monthly payment.");
+      return;
+    }
+
+    let changed;
+    do {
+      changed = false;
+
+      if (principalValue !== null && monthlyInterestRateValue !== null && numPaymentsValue !== null) {
+        const rateFactor = Math.pow(1 + monthlyInterestRateValue, numPaymentsValue);
+        const newMonthlyValue = principalValue * (monthlyInterestRateValue * rateFactor) / (rateFactor - 1);
+        if (!isNaN(newMonthlyValue) && isFinite(newMonthlyValue) && newMonthlyValue !== monthlyPayment) {
+          monthlyPayment = newMonthlyValue;
+          changed = true;
+        }
+      }
+    } while (changed);
+
+    if (monthlyPayment !== null) setMonthlyValue(monthlyPayment.toFixed(2));
+
+    setShowLoanResults(true);
+  };
+
   return (
     <div className="wrapper">
       <div className="background-section">
@@ -219,6 +260,48 @@ function App() {
                 <p>NOI: ${noi}</p>
                 <p>Property Value: ${propertyValue}</p>
                 <p>Cap Rate: {capRate}%</p>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="calculator2">
+          <h2>Loan Calculator</h2>
+          <div className="calculator">
+            <h2>Enter loan details:</h2>
+            {loanError && <p className="error">{loanError}</p>}
+            <div className="input-group">
+              <label>Principal Amount ($):</label>
+              <input
+                type="number"
+                value={principal || ""}
+                onChange={(e) => setPrincipal(e.target.value || null)}
+                placeholder="Enter Principal Value"
+              />
+            </div>
+            <div className="input-group">
+              <label>Number of Payments (#):</label>
+              <input
+                type="number"
+                value={numPayments || ""}
+                onChange={(e) => setNumPayments(e.target.value || null)}
+                placeholder="Total number of payments"
+              />
+            </div>
+            <div className="input-group">
+              <label>Monthly Interest Rate (%):</label>
+              <input
+                type="number"
+                value={monthlyInterestRate || ""}
+                onChange={(e) => setMonthlyInterestRate(e.target.value || null)}
+                placeholder="Annual interest rate"
+              />
+            </div>
+            <button onClick={calculateLoanValues}>Calculate</button>
+
+            {showLoanResults && (
+              <div className="results">
+                <h3>Calculated Loan Result:</h3>
+                <p>Monthly Payment: ${monthlyValue}</p>
               </div>
             )}
           </div>

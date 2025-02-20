@@ -33,18 +33,20 @@ body {
   min-height: 100vh; /* Ensures it takes full viewport height on desktop */
   padding: 20px 0; /* Adds padding for spacing */
   box-sizing: border-box;
+  flex-direction: column;
 }
 
 /* Container for calculator */
 .container {
-  width: 90%;
-  max-width: 600px;
-  background: #282a36;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  text-align: center;
-  margin: 20px 0; /* Adjusted margin for spacing */
+  width: 90%; /* Match the width of .container */
+  max-width: 600px; /* Match the max-width of .container */
+  background-color: #1e1e2e;
+  padding: 20px; /* Consistent padding with .container */
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+  margin: 20px 0; /* Consistent margin with .container */
+  border-radius: 12px; /* Match .container styling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Match .container styling */
+  text-align: center; /* Center-align content like .container */
 }
 
 /* Video Description Section - No background image here */
@@ -211,6 +213,28 @@ button:hover {
   margin-bottom: 15px;
   color: white;
   font-weight: bold;
+}
+.calculator2 {
+  width: 90%; /* Match the width of .container */
+  max-width: 600px; /* Match the max-width of .container */
+  background-color: #1e1e2e;
+  padding: 20px; /* Consistent padding with .container */
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+  margin: 20px 0; /* Consistent margin with .container */
+  border-radius: 12px; /* Match .container styling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Match .container styling */
+  text-align: center; /* Center-align content like .container */
+}
+
+/* Ensure input groups inside calculator2 fit properly */
+.calculator2 .input-group {
+  width: 100%; /* Ensure input groups take full width of parent */
+}
+
+/* Ensure inputs inside calculator2 fit within the container */
+.calculator2 input {
+  width: 100%; /* Full width of the input-group */
+  box-sizing: border-box; /* Prevent overflow due to paddindg */
 }
 
 /* Mobile Scaling */
