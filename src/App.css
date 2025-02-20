@@ -221,7 +221,7 @@ button:hover {
   /* the below scaling only applies when width is 768px or less */
   .video,
   .description {
-    width: 95%; /* Make it more flexible */
+    max-width: 95%; /* Make it more flexible */
     padding: 2px; /* Slightly less padding on mobile */
   }
   
