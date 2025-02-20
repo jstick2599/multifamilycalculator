@@ -3,11 +3,8 @@ body {
   font-family: "Poppins", sans-serif;
   background: #1e1e2e;
   color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Changed to min-height for full coverage */
   margin: 0;
+  min-height: 100vh; /* Ensures body takes full height */
   overflow-y: auto;
   font-family: "Montserrat";
 }
@@ -25,15 +22,17 @@ body {
 .background-section {
   background-image: url("./images/highRiseBackground.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; /* Covers the entire section */
   background-position: center;
-  background-attachment: fixed; /* Ensures clarity on scroll */
-  image-rendering: crisp-edges; /* Helps in maintaining sharpness */
+  background-attachment: fixed; /* Keeps it fixed on scroll */
+  image-rendering: crisp-edges; /* Maintains sharpness */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1; /* Allows it to take available space */
+  min-height: 100vh; /* Ensures it takes full viewport height on desktop */
+  padding: 20px 0; /* Adds padding for spacing */
+  box-sizing: border-box;
 }
 
 /* Container for calculator */
@@ -216,6 +215,14 @@ button:hover {
 
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
+  /* Adjust background section for mobile */
+  .background-section {
+    min-height: auto; /* Remove fixed height on mobile to fit content */
+    background-attachment: scroll; /* Fixed background can be glitchy on mobile */
+    background-size: cover; /* Ensures it still covers the section */
+    padding: 10px 0; /* Reduce padding for tighter fit */
+  }
+
   .video,
   .description {
     max-width: 95%;
@@ -223,14 +230,19 @@ button:hover {
   }
 
   body {
-    margin: 5%;
-    padding: 20px;
+    margin: 0; /* Remove margin for full width */
+    padding: 0; /* Remove padding */
   }
 
   .wrapper {
-    width: 90%;
-    padding: 20px;
-    margin-top: 10px;
+    width: 100%; /* Full width on mobile */
+    padding: 0; /* No extra padding */
+  }
+
+  .container {
+    width: 95%; /* Slightly wider for mobile */
+    margin: 10px 0; /* Reduce margin */
+    padding: 15px; /* Slightly less padding */
   }
 
   .rent-units-row input {
@@ -261,5 +273,16 @@ button:hover {
 
   .videoDescription {
     flex-direction: column;
+    padding: 10px 0; /* Adjust padding */
+  }
+
+  .video {
+    width: 90%; /* Wider on mobile */
+    height: 200px; /* Adjust height for mobile */
+  }
+
+  .description {
+    max-width: 90%; /* Wider on mobile */
+    padding: 0 5%; /* Reduce padding */
   }
 }
