@@ -213,13 +213,14 @@ button:hover {
   width: 100%;
   /* max-width: 600px; Adjust as needed */
   padding: 8px; /* Reduce padding */
-  margin: 0 auto;
+  
 }
 
 .description {
   width: 100%;
   /*max-width: 600px;  Adjust as needed */
   padding: 8px; /* Reduce padding */
+
 
 }
 /* Mobile Scaling */
