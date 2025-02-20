@@ -220,7 +220,7 @@ button:hover {
   width: 100%;
   max-width: 600px; /* Adjust as needed */
   padding: 8px; /* Reduce padding */
-  text-align: center;
+
 }
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
