@@ -193,36 +193,27 @@ button:hover {
   color: white;
   font-weight: bold;
 }
-.videoDescription{
+
+.videoDescription {
   display: flex;
   flex-direction: row;
-}
-/* .video{
-  width:50vw; 
-  padding-left:3%;
-  padding-bottom:3%;
-}
-.description{
-  width:50vw; 
-  padding-left:3%;
-  padding-right:3%;
-  /* color:#FFFFE0; 
-  
-} */
-.video {
+  justify-content: space-between;
+  gap: 20px; /* Space between video and description */
+  padding: 0 20px; /* Padding on left and right */
   width: 100%;
-  /* max-width: 600px; Adjust as needed */
-  padding: 8px; /* Reduce padding */
-  
+}
+
+.video {
+  flex: 1; /* Allow video to take up available space */
+  max-width: 50%; /* Ensure it doesn't take more than half the width */
 }
 
 .description {
-  width: 100%;
-  /*max-width: 600px;  Adjust as needed */
-  padding: 8px; /* Reduce padding */
-
-
+  flex: 1; /* Allow description to take up available space */
+  max-width: 50%;
+  padding-left: 20px; /* Space between video and description */
 }
+
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
   /* the below scaling only applies when width is 768px or less */
