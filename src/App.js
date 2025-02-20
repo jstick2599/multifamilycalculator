@@ -2,8 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import ReactPlayer from "react-player";
 
-
-
 function App() {
   const [rent, setRent] = useState(null);
   const [units, setUnits] = useState(null);
@@ -39,7 +37,6 @@ function App() {
     do {
       changed = false;
 
-      // Calculate gross income from rent and units
       if (rentValue !== null && unitsValue !== null) {
         const newGrossIncome = rentValue * unitsValue * 12;
         if (!isNaN(newGrossIncome) && isFinite(newGrossIncome) && newGrossIncome !== grossIncomeValue) {
@@ -48,7 +45,6 @@ function App() {
         }
       }
 
-      // Calculate NOI from gross income and expenses
       if (grossIncomeValue !== null && expensesValue !== null) {
         const newNoi = expenseType === "percentage" 
           ? grossIncomeValue * (1 - expensesValue / 100)
@@ -58,7 +54,7 @@ function App() {
           changed = true;
         }
       }
-      // Calculate NOI from cap rate and property value
+
       if (capRateValue !== null && propertyValueValue !== null) {
         const newNoi = capRateValue * propertyValueValue;
         if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
@@ -67,7 +63,6 @@ function App() {
         }
       }
 
-      // Calculate property value from NOI and cap rate
       if (noiValue !== null && capRateValue !== null && capRateValue !== 0) {
         const newPropertyValue = noiValue / capRateValue;
         if (!isNaN(newPropertyValue) && isFinite(newPropertyValue) && newPropertyValue !== propertyValueValue) {
@@ -76,7 +71,6 @@ function App() {
         }
       }
 
-      // Calculate cap rate from NOI and property value
       if (noiValue !== null && propertyValueValue !== null && propertyValueValue !== 0) {
         const newCapRate = noiValue / propertyValueValue;
         if (!isNaN(newCapRate) && isFinite(newCapRate) && newCapRate !== capRateValue) {
@@ -85,7 +79,6 @@ function App() {
         }
       }
 
-      // Calculate rent from gross income and units
       if (grossIncomeValue !== null && unitsValue !== null && unitsValue !== 0) {
         const newRent = grossIncomeValue / (unitsValue * 12);
         if (!isNaN(newRent) && isFinite(newRent) && newRent !== rentValue) {
@@ -94,7 +87,6 @@ function App() {
         }
       }
 
-      // Calculate units from gross income and rent
       if (grossIncomeValue !== null && rentValue !== null && rentValue !== 0) {
         const newUnits = grossIncomeValue / (rentValue * 12);
         if (!isNaN(newUnits) && isFinite(newUnits) && newUnits !== unitsValue) {
@@ -103,7 +95,6 @@ function App() {
         }
       }
 
-      // Calculate expenses from gross income and NOI
       if (grossIncomeValue !== null && noiValue !== null) {
         let newExpenses;
         if (expenseType === "percentage") {
@@ -116,10 +107,8 @@ function App() {
           changed = true;
         }
       }
-
     } while (changed);
 
-    // Update all calculated values
     if (rentValue !== null) setRent(rentValue.toFixed(2));
     if (unitsValue !== null) setUnits(unitsValue.toFixed(0));
     if (grossIncomeValue !== null) setGrossIncome(grossIncomeValue.toFixed(2));
@@ -133,13 +122,11 @@ function App() {
 
   return (
     <div className="wrapper">
-      <div className="backgroundImg">
+      <div className="background-section">
         <div className="container">
           <h1>Multifamily Property Value Calculator</h1>
-
           <div className="calculator">
             <h2>Enter known values:</h2>
-
             {error && <p className="error">{error}</p>}
 
             <div className="input-group">
@@ -200,6 +187,7 @@ function App() {
                 placeholder="Enter NOI"
               />
             </div>
+
             <div className="input-group">
               <label>Cap Rate (%):</label>
               <input
@@ -220,8 +208,6 @@ function App() {
               />
             </div>
 
-
-
             <button onClick={calculateValues}>Calculate</button>
 
             {showResults && (
@@ -236,31 +222,31 @@ function App() {
               </div>
             )}
           </div>
-          </div>
         </div>
+      </div>
+
       <div className="videoDescription">
         <div className="video">
-                  <ReactPlayer 
-                  url="https://www.youtube.com/shorts/I5fQcEoC6k4" 
-                  controls
-                  width="100%"
-                  height="100%"
-                  className="react-player"
-                  />
+          <ReactPlayer
+            url="https://www.youtube.com/shorts/I5fQcEoC6k4"
+            controls
+            width="100%"
+            height="100%"
+            className="react-player"
+          />
         </div>
-       
         <div className="description">
-          <h1 >Welcome to multifamilycalc.com – the simplest way to analyze multifamily real estate deals with ease. Our powerful yet user-friendly calculator helps you determine Net Operating Income (NOI), Cap Rates, and Property Values in just a few clicks.
+          <h1>
+            Welcome to multifamilycalc.com – the simplest way to analyze multifamily real estate deals with ease. Our powerful yet user-friendly calculator helps you determine Net Operating Income (NOI), Cap Rates, and Property Values in just a few clicks.
           </h1>
-          <h1>Whether you're a seasoned investor, realtor, or just getting started, EasyCap Calculator takes the guesswork out of real estate math. No more complex formulas or spreadsheets—just enter your numbers and get instant, accurate results.</h1>
+          <h1>
+            Whether you're a seasoned investor, realtor, or just getting started, EasyCap Calculator takes the guesswork out of real estate math. No more complex formulas or spreadsheets—just enter your numbers and get instant, accurate results.
+          </h1>
           <h1>
             Make smarter multifamily investment decisions—faster. Try it now!
           </h1>
         </div>
-        
-
       </div>
-
     </div>
   );
 }

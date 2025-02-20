@@ -6,42 +6,37 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: auto;
+  min-height: 100vh; /* Changed to min-height for full coverage */
   margin: 0;
-  /* background-image: url("./images/highRiseBackground.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; */
-  background-attachment: fixed; /* Ensures clarity on scroll */
-  image-rendering: crisp-edges; /* Helps in maintaining sharpness */
   overflow-y: auto;
-  font-family:  'Montserrat';
-}
-.wrapper {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center content */
-  width: 100%;
-  
+  font-family: "Montserrat";
 }
 
-.backgroundWrapper {
+/* Wrapper for the entire content */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+/* Background container for the calculator section only */
+.background-section {
+  background-image: url("./images/highRiseBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Ensures clarity on scroll */
+  image-rendering: crisp-edges; /* Helps in maintaining sharpness */
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  flex-grow: 1; /* Allows it to take available space */
 }
 
-.backgroundImg {
-  background-image: url('./images/highRiseBackground.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  max-width: 600px;
-  padding: 20px; /* Ensure spacing around content */
-}
-
+/* Container for calculator */
 .container {
   width: 90%;
   max-width: 600px;
@@ -50,18 +45,25 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   text-align: center;
-  margin-top: 1%;
-
+  margin: 20px 0; /* Adjusted margin for spacing */
 }
 
-
-
+/* Video Description Section - No background image here */
+.videoDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  background: #1e1e2e; /* Matches body background */
+  padding: 20px 0;
+}
 
 .video {
-  margin-top: 20px; /* Adds space between calculator and video */
-  width: 90%;
+  width: 50%;
   max-width: 600px;
-  height: 315px; /* Set height to maintain aspect ratio */
+  height: 315px;
 }
 
 .react-player {
@@ -69,8 +71,10 @@ body {
   height: 100% !important;
 }
 
-
-
+.description {
+  max-width: 50%;
+  padding: 0 30%;
+}
 
 /* Rent and Units Row */
 .rent-units-row {
@@ -83,7 +87,7 @@ body {
 
 /* Rent and Units Input Fields */
 .rent-units-row input {
-  width: 45%; /* Reduced width for Rent and Units */
+  width: 45%;
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
@@ -98,7 +102,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 45%; /* Ensure labels are aligned above each input */
+  width: 45%;
 }
 
 .rent-units-row label {
@@ -115,7 +119,9 @@ body {
 }
 
 /* Adjust button and input styles for better spacing */
-button, input, select {
+button,
+input,
+select {
   margin-top: 8px;
 }
 
@@ -153,11 +159,6 @@ input:disabled {
 }
 
 /* Expense Input Row */
-.expense-input {
-  display: flex;
-  gap: 10px;
-}
-
 .expense-input select {
   width: 80px;
 }
@@ -212,78 +213,53 @@ button:hover {
   color: white;
   font-weight: bold;
 }
-.videoDescription {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-}
-
-.video {
-  width:50%;
-}
-
-
-.description {
-  max-width: 50%;
-  padding-right: 30%;
-  padding-left: 30%;
-}
-
-
 
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
-  /* the below scaling only applies when width is 768px or less */
   .video,
   .description {
-    max-width: 95%; /* Make it more flexible */
-    padding: 2px; /* Slightly less padding on mobile */
+    max-width: 95%;
+    padding: 2px;
   }
-  
-  body {
-    margin: 5%; /* Less margin on mobile */
-    padding: 20px; /* Slightly more padding at the top */
-  }
-    /* Adjust wrapper width and margin */
-    .wrapper {
-      width: 90%; /* Increase the width to 90% for mobile */
-      padding: 20px; /* Adjust padding inside the container */
-      margin-top: 10px; /* Reduce margin-top */
-    }
-    /* Adjust input fields to fit the screen */
-    .rent-units-row input {
-      width: 45%; /* Maintain 45% width for rent and units inputs */
-    }
-  
-    .rent-units-row .label-wrapper {
-      width: 45%; /* Ensure labels stay aligned with inputs */
-    }
-  
-    .expense-input {
-      flex-direction: column; /* Stack expense input fields vertically */
-      gap: 10px;
-    }
-  
-    /* Buttons and other elements */
-    button {
-      width: 100%; /* Ensure button takes full width */
-    }
-  
-    /* Checkboxes */
-    .checkbox-group {
-      flex-direction: column; /* Stack checkboxes vertically on mobile */
-      align-items: flex-start; /* Align items to the left */
-    }
-  
-    .checkbox-group label {
-      font-size: 16px; /* Adjust font size for better readability */
-    }
-    .videoDescription{
-      display: flex;
-      flex-direction: column;
-    }
 
+  body {
+    margin: 5%;
+    padding: 20px;
+  }
+
+  .wrapper {
+    width: 90%;
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+  .rent-units-row input {
+    width: 45%;
+  }
+
+  .rent-units-row .label-wrapper {
+    width: 45%;
+  }
+
+  .expense-input {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .checkbox-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .checkbox-group label {
+    font-size: 16px;
+  }
+
+  .videoDescription {
+    flex-direction: column;
+  }
 }
