@@ -212,6 +212,16 @@ button:hover {
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
   /* the below scaling only applies when width is 768px or less */
+  .video{
+    padding-left:1%;
+    padding-bottom:1%;
+
+  }
+  .description{
+    padding-left:1%;
+    padding-right:1%;
+
+  }
   
   body {
     margin: 5%; /* Less margin on mobile */
