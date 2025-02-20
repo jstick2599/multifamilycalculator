@@ -6,16 +6,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
   margin: 0;
-  padding-top: 5%; /* Adds space at the top */
   /* background-image: url("./images/highRiseBackground.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center; */
   background-attachment: fixed; /* Ensures clarity on scroll */
   image-rendering: crisp-edges; /* Helps in maintaining sharpness */
-  margin-top:10%;
   overflow-y: auto;
   font-family:  'Montserrat';
 }
@@ -34,7 +32,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 1%;
 }
 
 .video {
