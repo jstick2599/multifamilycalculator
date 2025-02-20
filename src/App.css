@@ -197,7 +197,7 @@ button:hover {
   display: flex;
   flex-direction: row;
 }
-.video{
+/* .video{
   width:50vw; 
   padding-left:3%;
   padding-bottom:3%;
@@ -206,22 +206,30 @@ button:hover {
   width:50vw; 
   padding-left:3%;
   padding-right:3%;
-  /* color:#FFFFE0; */
+  /* color:#FFFFE0; 
   
+} */
+.video {
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  padding: 8px; /* Reduce padding */
+  margin: 0 auto;
+}
+
+.description {
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  padding: 8px; /* Reduce padding */
+  text-align: center;
 }
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
   /* the below scaling only applies when width is 768px or less */
-  /* .video{
-    padding-left:1%;
-
-
+  .video,
+  .description {
+    max-width: 90%; /* Make it more flexible */
+    padding: 6px; /* Slightly less padding on mobile */
   }
-  .description{
-    padding-left:1%;
-    padding-right:1%;
-
-  } */
   
   body {
     margin: 5%; /* Less margin on mobile */
