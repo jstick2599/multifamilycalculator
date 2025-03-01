@@ -10,14 +10,14 @@
     line-height: 1.6;
 }
 
-h1 {
+.privacyH1 {
     text-align: center;
     font-size: 2rem;
     color: #2c3e50;
     margin-bottom: 20px;
 }
 
-h2 {
+.privacyH2 {
     font-size: 1.5rem;
     color: #2980b9;
     margin-top: 20px;
@@ -25,19 +25,19 @@ h2 {
     padding-bottom: 5px;
 }
 
-h3 {
+.privacyH3 {
     font-size: 1.2rem;
     color: #34495e;
     margin-top: 15px;
 }
 
-p {
+.privacyP {
     font-size: 1rem;
     color: #555;
     margin-bottom: 15px;
 }
 
-a {
+.privacyA {
     color: #e74c3c;
     text-decoration: none;
     font-weight: bold;
