@@ -20,7 +20,7 @@ body {
 
 /* Background container for the calculator section only */
 .background-section {
-  background-image: url("./images/highRiseBackground.png");
+  background-image: url("../images/highRiseBackground.png");
   background-repeat: no-repeat;
   background-size: cover; /* Covers the entire section */
   background-position: center;
