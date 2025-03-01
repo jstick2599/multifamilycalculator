@@ -276,8 +276,8 @@ function App() {
                 <label>Loan Terms (Years)</label>
                 <input
                   type="number"
-                  value={numPayments*12 || ""}
-                  onChange={(e) => setNumPayments(e.target.value || null)}
+                  value={numPayments || ""}
+                  onChange={(e) => setNumPayments(e.target.value*12 || null)}
                   placeholder="Payments"
                 />
               </div>
