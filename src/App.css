@@ -236,7 +236,78 @@ button:hover {
   width: 100%; /* Full width of the input-group */
   box-sizing: border-box; /* Prevent overflow due to paddindg */
 }
+/* Loan Input Row */
+.loan-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
 
+/* Adjust input-group inside loan calculator */
+.calculator2 .input-group {
+  flex: 1; /* Each input group takes equal space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Adjust input width and styling inside loan-input-row */
+.loan-input-row input {
+  width: 100%; /* Full width of its container */
+  padding: 8px; /* Slightly smaller padding for compactness */
+  font-size: 14px; /* Slightly smaller font for better fit */
+  border-radius: 6px;
+  background: #44475a;
+  color: #ffffff;
+  border: none;
+  box-sizing: border-box;
+}
+
+/* Adjust label styling */
+.loan-input-row label {
+  font-size: 14px; /* Smaller font size for compactness */
+  margin-bottom: 5px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Ensure calculator2 container fits the row layout */
+.calculator2 {
+  width: 90%;
+  max-width: 600px;
+  background-color: #1e1e2e;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Mobile Scaling for Loan Input Row */
+@media screen and (max-width: 768px) {
+  .loan-input-row {
+    flex-direction: column; /* Stack vertically on mobile */
+    gap: 10px;
+  }
+
+  .calculator2 .input-group {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .loan-input-row input {
+    width: 100%; /* Full width on mobile */
+    font-size: 16px; /* Restore larger font on mobile */
+    padding: 10px; /* Restore original padding */
+  }
+
+  .loan-input-row label {
+    font-size: 16px; /* Restore larger font on mobile */
+  }
+}
 /* Mobile Scaling */
 @media screen and (max-width: 768px) {
   /* Adjust background section for mobile */
