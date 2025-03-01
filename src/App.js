@@ -311,7 +311,7 @@ function App() {
           <label>Debt Service ($):</label>
           <input
             type="number"
-            value={noi || ""}
+            value={showLoanResults || ""}
             onChange={(e) => setShowLoanResults(e.target.value || null)}
             placeholder="Enter Debt Service"
           />
