@@ -264,7 +264,7 @@ function App() {
             {loanError && <p className="error">{loanError}</p>}
             <div className="loan-input-row">
               <div className="input-group">
-                <label>Principal ($)</label>
+                <label>Loan Amount ($)</label>
                 <input
                   type="number"
                   value={principal || ""}
@@ -273,16 +273,16 @@ function App() {
                 />
               </div>
               <div className="input-group">
-                <label>Payments (#)</label>
+                <label>Loan Terms (Years)</label>
                 <input
                   type="number"
-                  value={numPayments || ""}
+                  value={numPayments*12 || ""}
                   onChange={(e) => setNumPayments(e.target.value || null)}
                   placeholder="Payments"
                 />
               </div>
               <div className="input-group">
-                <label>Rate (%)</label>
+                <label>Interest Rate (%)</label>
                 <input
                   type="number"
                   value={monthlyInterestRate || ""}
