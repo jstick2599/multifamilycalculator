@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Add useEffect import
 import "./App.css";
 import ReactPlayer from "react-player";
 
@@ -16,9 +16,9 @@ function App() {
   const [monthlyInterestRate, setMonthlyInterestRate] = useState(null);
   const [monthlyValue, setMonthlyValue] = useState(null);
   const [error, setError] = useState("");
-  const [loanError, setLoanError] = useState(""); // Separate error state for loan calculator
+  const [loanError, setLoanError] = useState("");
   const [showResults, setShowResults] = useState(false);
-  const [showLoanResults, setShowLoanResults] = useState(false); // Separate state for loan results
+  const [showLoanResults, setShowLoanResults] = useState(false);
 
   const calculateValues = () => {
     setError("");
@@ -130,8 +130,7 @@ function App() {
     setLoanError("");
     let principalValue = principal ? parseFloat(principal) : null;
     let numPaymentsValue = numPayments ? parseFloat(numPayments) : null;
-    let monthlyInterestRateValue = monthlyInterestRate ? parseFloat(monthlyInterestRate) / 100 / 12 : null; // Convert annual % to monthly decimal
-    let monthlyPayment = monthlyValue ? parseFloat(monthlyValue) : null;
+    let monthlyInterestRateValue = monthlyInterestRate ? parseFloat(monthlyInterestRate) / 100 / 12 : null;
 
     let givenValues = [principal, numPayments, monthlyInterestRate].filter(
       (val) => val !== null && val !== ""
@@ -139,27 +138,29 @@ function App() {
 
     if (givenValues < 3) {
       setLoanError("Please provide Principal, Number of Payments, and Monthly Interest Rate to calculate the monthly payment.");
+      setMonthlyValue(null); // Clear Debt Service if inputs are incomplete
+      setShowLoanResults(false);
       return;
     }
 
-    let changed;
-    do {
-      changed = false;
-
-      if (principalValue !== null && monthlyInterestRateValue !== null && numPaymentsValue !== null) {
-        const rateFactor = Math.pow(1 + monthlyInterestRateValue, numPaymentsValue);
-        const newMonthlyValue = principalValue * (monthlyInterestRateValue * rateFactor) / (rateFactor - 1);
-        if (!isNaN(newMonthlyValue) && isFinite(newMonthlyValue) && newMonthlyValue !== monthlyPayment) {
-          monthlyPayment = newMonthlyValue;
-          changed = true;
-        }
+    if (principalValue !== null && monthlyInterestRateValue !== null && numPaymentsValue !== null) {
+      const rateFactor = Math.pow(1 + monthlyInterestRateValue, numPaymentsValue);
+      const newMonthlyValue = principalValue * (monthlyInterestRateValue * rateFactor) / (rateFactor - 1);
+      if (!isNaN(newMonthlyValue) && isFinite(newMonthlyValue)) {
+        setMonthlyValue(newMonthlyValue.toFixed(2));
+        setShowLoanResults(true);
+      } else {
+        setLoanError("Calculation resulted in an invalid value. Please check your inputs.");
+        setMonthlyValue(null);
+        setShowLoanResults(false);
       }
-    } while (changed);
-
-    if (monthlyPayment !== null) setMonthlyValue(monthlyPayment.toFixed(2));
-
-    setShowLoanResults(true);
+    }
   };
+
+  // useEffect to auto-calculate Debt Service when inputs change
+  useEffect(() => {
+    calculateLoanValues();
+  }, [principal, numPayments, monthlyInterestRate]);
 
   return (
     <div className="wrapper">
@@ -169,7 +170,6 @@ function App() {
           <div className="calculator">
             <h2>Enter known values:</h2>
             {error && <p className="error">{error}</p>}
-
             <div className="input-group">
               <label>Rent ($ per unit) & Units (#):</label>
               <div className="rent-units-row">
@@ -189,7 +189,6 @@ function App() {
                 <span className="multiply">x12</span>
               </div>
             </div>
-
             <div className="input-group">
               <label>Gross Income ($):</label>
               <input
@@ -199,7 +198,6 @@ function App() {
                 placeholder="Enter Gross Income"
               />
             </div>
-
             <div className="input-group">
               <label>Expenses:</label>
               <div className="expense-input">
@@ -218,7 +216,6 @@ function App() {
                 </select>
               </div>
             </div>
-
             <div className="input-group">
               <label>Net Operating Income (NOI) ($):</label>
               <input
@@ -228,7 +225,6 @@ function App() {
                 placeholder="Enter NOI"
               />
             </div>
-
             <div className="input-group">
               <label>Cap Rate (%):</label>
               <input
@@ -238,7 +234,6 @@ function App() {
                 placeholder="Enter Cap Rate"
               />
             </div>
-
             <div className="input-group">
               <label>Property Value ($):</label>
               <input
@@ -248,9 +243,7 @@ function App() {
                 placeholder="Enter Property Value"
               />
             </div>
-
             <button onClick={calculateValues}>Calculate</button>
-
             {showResults && (
               <div className="results">
                 <h3>Calculated Results:</h3>
@@ -279,57 +272,56 @@ function App() {
                   placeholder="Principal"
                 />
               </div>
-          <div className="input-group">
-            <label>Payments (#)</label>
-            <input
-              type="number"
-              value={numPayments || ""}
-              onChange={(e) => setNumPayments(e.target.value || null)}
-              placeholder="Payments"
-            />
-          </div>
-          <div className="input-group">
-            <label>Rate (%)</label>
-            <input
-              type="number"
-              value={monthlyInterestRate || ""}
-              onChange={(e) => setMonthlyInterestRate(e.target.value || null)}
-              placeholder="Rate"
-            />
+              <div className="input-group">
+                <label>Payments (#)</label>
+                <input
+                  type="number"
+                  value={numPayments || ""}
+                  onChange={(e) => setNumPayments(e.target.value || null)}
+                  placeholder="Payments"
+                />
+              </div>
+              <div className="input-group">
+                <label>Rate (%)</label>
+                <input
+                  type="number"
+                  value={monthlyInterestRate || ""}
+                  onChange={(e) => setMonthlyInterestRate(e.target.value || null)}
+                  placeholder="Rate"
+                />
+              </div>
+            </div>
+            <div className="input-group">
+              <label>Net Operating Income (NOI) ($):</label>
+              <input
+                type="number"
+                value={noi || ""}
+                onChange={(e) => setNoi(e.target.value || null)}
+                placeholder="Enter NOI"
+              />
+            </div>
+            <div className="input-group">
+              <label>Debt Service ($):</label>
+              <input
+                type="number"
+                value={monthlyValue || ""}
+                onChange={(e) => setMonthlyValue(e.target.value || null)}
+                placeholder="Enter Debt Service"
+              />
+            </div>
+            {/* <button onClick={calculateLoanValues}>Calculate</button> */} {/* Optional: Keep if you want manual trigger */}
+            {showLoanResults && (
+              <div className="results">
+                <h3>Calculated Loan Results:</h3>
+                <p>Monthly Debt Service: ${monthlyValue}</p>
+                {noi && monthlyValue && (
+                  <p>Debt Service Coverage Ratio (DSCR): {(noi / (monthlyValue * 12)).toFixed(2)}</p>
+                )}
+              </div>
+            )}
           </div>
         </div>
-        <div className="input-group">
-                  <label>Net Operating Income (NOI) ($):</label>
-                  <input
-                    type="number"
-                    value={noi || ""}
-                    onChange={(e) => setNoi(e.target.value || null)}
-                    placeholder="Enter NOI"
-                  />
-                </div>
-        <div className="input-group">
-          <label>Debt Service ($):</label>
-          <input
-            type="number"
-            value={showLoanResults || ""}
-            onChange={(e) => setShowLoanResults(e.target.value || null)}
-            placeholder="Enter Debt Service"
-          />
-        </div>
-    <button onClick={calculateLoanValues}>Calculate</button>
-    
-
-    {showLoanResults && (
-      <div className="results">
-        <h3>Debt Service Coverage Ratio: ${noi/showLoanResults}</h3>
       </div>
-    )}
-  </div>
-  
-</div>
-
-      </div>
-
       <div className="videoDescription">
         <div className="video">
           <ReactPlayer
