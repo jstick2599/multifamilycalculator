@@ -129,7 +129,7 @@ function App() {
   const calculateLoanValues = () => {
     setLoanError("");
     let principalValue = principal ? parseFloat(principal) : null;
-    let numPaymentsValue = numPayments ? parseFloat(numPayments) : null;
+    let numPaymentsValue = numPayments*12 ? parseFloat(numPayments*12) : null;
     let monthlyInterestRateValue = monthlyInterestRate ? parseFloat(monthlyInterestRate) / 100 / 12 : null;
 
     let givenValues = [principal, numPayments, monthlyInterestRate].filter(
@@ -277,7 +277,7 @@ function App() {
                 <input
                   type="number"
                   value={numPayments || ""}
-                  onChange={(e) => setNumPayments(e.target.value*12 || null)}
+                  onChange={(e) => setNumPayments(e.target.value || null)}
                   placeholder="Payments"
                 />
               </div>
