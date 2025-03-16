@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react"; // Add useEffect import
+
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import ReactPlayer from "react-player";
@@ -32,106 +33,41 @@ function Home() {
     let capRateValue = capRate ? parseFloat(capRate) / 100 : null;
     let grossIncomeValue = grossIncome ? parseFloat(grossIncome) : null;
 
-    let givenValues = [rent, units, grossIncome, expenses, noi, propertyValue, capRate].filter(
-      (val) => val !== null && val !== ""
-    ).length;
-
-    if (givenValues < 2) {
-      setError("Please provide at least 2 values to start calculations.");
-      return;
+    // Only calculate Gross Income if both Rent and Units are provided
+    if (rentValue !== null && unitsValue !== null) {
+      const newGrossIncome = rentValue * unitsValue * 12;
+      if (!isNaN(newGrossIncome) && isFinite(newGrossIncome) && newGrossIncome !== grossIncomeValue) {
+        setGrossIncome(newGrossIncome.toFixed(2));
+      }
     }
 
-    let changed;
-    do {
-      changed = false;
-
-      if (rentValue !== null && unitsValue !== null) {
-        const newGrossIncome = rentValue * unitsValue * 12;
-        if (!isNaN(newGrossIncome) && isFinite(newGrossIncome) && newGrossIncome !== grossIncomeValue) {
-          grossIncomeValue = newGrossIncome;
-          changed = true;
-        }
+    // Only calculate NOI if Gross Income and Expenses are provided
+    if (grossIncomeValue !== null && expensesValue !== null) {
+      const newNoi = expenseType === "percentage"
+        ? grossIncomeValue * (1 - expensesValue / 100)
+        : grossIncomeValue - expensesValue;
+      if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
+        setNoi(newNoi.toFixed(2));
       }
+    }
 
-      if (grossIncomeValue !== null && expensesValue !== null) {
-        const newNoi = expenseType === "percentage" 
-          ? grossIncomeValue * (1 - expensesValue / 100)
-          : grossIncomeValue - expensesValue;
-        if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
-          noiValue = newNoi;
-          changed = true;
-        }
+    // Only calculate Property Value if NOI and Cap Rate are provided
+    if (noiValue !== null && capRateValue !== null && capRateValue !== 0) {
+      const newPropertyValue = noiValue / capRateValue;
+      if (!isNaN(newPropertyValue) && isFinite(newPropertyValue) && newPropertyValue !== propertyValueValue) {
+        setPropertyValue(newPropertyValue.toFixed(2));
       }
+    }
 
-      if (capRateValue !== null && propertyValueValue !== null) {
-        const newNoi = capRateValue * propertyValueValue;
-        if (!isNaN(newNoi) && isFinite(newNoi) && newNoi !== noiValue) {
-          noiValue = newNoi;
-          changed = true;
-        }
-      }
-
-      if (noiValue !== null && capRateValue !== null && capRateValue !== 0) {
-        const newPropertyValue = noiValue / capRateValue;
-        if (!isNaN(newPropertyValue) && isFinite(newPropertyValue) && newPropertyValue !== propertyValueValue) {
-          propertyValueValue = newPropertyValue;
-          changed = true;
-        }
-      }
-
-      if (noiValue !== null && propertyValueValue !== null && propertyValueValue !== 0) {
-        const newCapRate = noiValue / propertyValueValue;
-        if (!isNaN(newCapRate) && isFinite(newCapRate) && newCapRate !== capRateValue) {
-          capRateValue = newCapRate;
-          changed = true;
-        }
-      }
-
-      if (grossIncomeValue !== null && unitsValue !== null && unitsValue !== 0) {
-        const newRent = grossIncomeValue / (unitsValue * 12);
-        if (!isNaN(newRent) && isFinite(newRent) && newRent !== rentValue) {
-          rentValue = newRent;
-          changed = true;
-        }
-      }
-
-      if (grossIncomeValue !== null && rentValue !== null && rentValue !== 0) {
-        const newUnits = grossIncomeValue / (rentValue * 12);
-        if (!isNaN(newUnits) && isFinite(newUnits) && newUnits !== unitsValue) {
-          unitsValue = newUnits;
-          changed = true;
-        }
-      }
-
-      if (grossIncomeValue !== null && noiValue !== null) {
-        let newExpenses;
-        if (expenseType === "percentage") {
-          newExpenses = ((grossIncomeValue - noiValue) / grossIncomeValue) * 100;
-        } else {
-          newExpenses = grossIncomeValue - noiValue;
-        }
-        if (!isNaN(newExpenses) && isFinite(newExpenses) && newExpenses !== expensesValue) {
-          expensesValue = newExpenses;
-          changed = true;
-        }
-      }
-    } while (changed);
-
-    if (rentValue !== null) setRent(rentValue.toFixed(2));
-    if (unitsValue !== null) setUnits(unitsValue.toFixed(0));
-    if (grossIncomeValue !== null) setGrossIncome(grossIncomeValue.toFixed(2));
-    if (expensesValue !== null) setExpenses(expensesValue.toFixed(2));
-    if (noiValue !== null) setNoi(noiValue.toFixed(2));
-    if (propertyValueValue !== null) setPropertyValue(propertyValueValue.toFixed(2));
-    if (capRateValue !== null) setCapRate((capRateValue * 100).toFixed(2));
-
-    setShowResults(true);
+    // Show results if at least one calculation has been made
+    const calculatedValues = [grossIncome, noi, propertyValue].filter(val => val !== null && val !== "").length;
+    setShowResults(calculatedValues > 0);
   };
 
   const calculateLoanValues = () => {
     setLoanError("");
     let principalValue = principal ? parseFloat(principal) : null;
-    let numPaymentsValue = numPayments*12 ? parseFloat(numPayments*12) : null;
+    let numPaymentsValue = numPayments ? parseFloat(numPayments) * 12 : null;
     let monthlyInterestRateValue = monthlyInterestRate ? parseFloat(monthlyInterestRate) / 100 / 12 : null;
 
     let givenValues = [principal, numPayments, monthlyInterestRate].filter(
@@ -140,7 +76,7 @@ function Home() {
 
     if (givenValues < 3) {
       setLoanError("Please provide Principal, Number of Payments, and Monthly Interest Rate to calculate the monthly payment.");
-      setMonthlyValue(null); // Clear Debt Service if inputs are incomplete
+      setMonthlyValue(null);
       setShowLoanResults(false);
       return;
     }
@@ -159,10 +95,16 @@ function Home() {
     }
   };
 
-  // useEffect to auto-calculate Debt Service when inputs change
+  // Auto-calculate Property Values when inputs change
+  useEffect(() => {
+    calculateValues();
+  }, [rent, units, expenses, expenseType, noi, propertyValue, capRate, grossIncome]);
+
+  // Auto-calculate Debt Service when inputs change
   useEffect(() => {
     calculateLoanValues();
   }, [principal, numPayments, monthlyInterestRate]);
+
   const navigate = useNavigate();
   const Privacy = () => navigate("/Privacy");
 
@@ -247,16 +189,16 @@ function Home() {
                 placeholder="Enter Property Value"
               />
             </div>
-            <button onClick={calculateValues}>Calculate</button>
             {showResults && (
               <div className="results">
                 <h3>Calculated Results:</h3>
-                <p>Rent: ${rent}</p>
-                <p>Units: {units}</p>
-                <p>Gross Income: ${grossIncome}</p>
-                <p>NOI: ${noi}</p>
-                <p>Property Value: ${propertyValue}</p>
-                <p>Cap Rate: {capRate}%</p>
+                <p>Rent: ${rent || "N/A"}</p>
+                <p>Units: {units || "N/A"}</p>
+                <p>Gross Income: ${grossIncome || "N/A"}</p>
+                <p>Expenses: {expenses ? (expenseType === "percentage" ? `${expenses}%` : `$${expenses}`) : "N/A"}</p>
+                <p>NOI: ${noi || "N/A"}</p>
+                <p>Property Value: ${propertyValue || "N/A"}</p>
+                <p>Cap Rate: {capRate ? `${capRate}%` : "N/A"}</p>
               </div>
             )}
           </div>
@@ -313,7 +255,6 @@ function Home() {
                 placeholder="Enter Debt Service"
               />
             </div>
-            {/* <button onClick={calculateLoanValues}>Calculate</button> */} {/* Optional: Keep if you want manual trigger */}
             {showLoanResults && (
               <div className="results">
                 <h3>Calculated Loan Results:</h3>
